@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./styles/App.css";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-  Link,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Question from "./components/Question";
 import Home from "./components/Home";
 import Ausgabe from "./components/Ausgabe";
