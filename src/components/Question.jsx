@@ -12,7 +12,9 @@ export default function Question({ name, nextPage, lastPage }) {
       <button>Selten</button>
       <button>Trifft gar nicht zu</button>
       <br />
-      <Link to={`/Questions/${nextPage}`}>Next Question</Link>
+      <Link to={lastPage === "true" ? "/" : `/Questions/${nextPage}`}>
+        Next Question
+      </Link>
     </div>
   );
 }
