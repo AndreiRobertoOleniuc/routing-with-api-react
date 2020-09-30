@@ -29,7 +29,7 @@ function App() {
               <Link to="/">Home</Link>
             </li>
             {data.map((item) => (
-              <li>
+              <li key={item.id}>
                 <Link to={`/Questions/${item.id}`}>{item.id}</Link>
               </li>
             ))}
@@ -40,7 +40,11 @@ function App() {
             </Route>
             {data.map((item) => (
               <Route key={item.id} exact path={`/Questions/${item.id}`}>
-                <Question name={item.question} nextPage={item.id + 1} />
+                <Question
+                  name={item.question}
+                  nextPage={item.id + 1}
+                  lastPage={item.id === data.length ? "true" : "false"}
+                />
               </Route>
             ))}
           </Switch>
