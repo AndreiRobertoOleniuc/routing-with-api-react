@@ -27,13 +27,17 @@ export default function Question({
   return (
     <div>
       <h1>{name}</h1>
-      <button onClick={add4}>Trifft zu</button>
-      <button onClick={add3}>Manchmal</button>
-      <button onClick={add2}>Selten</button>
-      <button onClick={add1}>Trifft gar nicht zu</button>
-      <br />
       <Link to={lastPage === "true" ? "/Ausgabe" : `/Questions/${nextPage}`}>
-        Continue
+        <button onClick={add4}>Trifft zu</button>
+      </Link>
+      <Link to={lastPage === "true" ? "/Ausgabe" : `/Questions/${nextPage}`}>
+        <button onClick={add3}>Trifft zu</button>
+      </Link>
+      <Link to={lastPage === "true" ? "/Ausgabe" : `/Questions/${nextPage}`}>
+        <button onClick={add2}>Trifft zu</button>
+      </Link>
+      <Link to={lastPage === "true" ? "/Ausgabe" : `/Questions/${nextPage}`}>
+        <button onClick={add1}>Trifft zu</button>
       </Link>
     </div>
   );
