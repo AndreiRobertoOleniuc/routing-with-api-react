@@ -31,13 +31,13 @@ export default function Question({
         <button onClick={add4}>Trifft zu</button>
       </Link>
       <Link to={lastPage === "true" ? "/Ausgabe" : `/Questions/${nextPage}`}>
-        <button onClick={add3}>Trifft zu</button>
+        <button onClick={add3}>Manchmal</button>
       </Link>
       <Link to={lastPage === "true" ? "/Ausgabe" : `/Questions/${nextPage}`}>
-        <button onClick={add2}>Trifft zu</button>
+        <button onClick={add2}>Selten</button>
       </Link>
       <Link to={lastPage === "true" ? "/Ausgabe" : `/Questions/${nextPage}`}>
-        <button onClick={add1}>Trifft zu</button>
+        <button onClick={add1}>Trifft gar nicht zu</button>
       </Link>
     </div>
   );
