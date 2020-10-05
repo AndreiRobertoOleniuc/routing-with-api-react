@@ -8,38 +8,24 @@ import LoginPage from "./auth/LoginPage";
 import PrivateRoute from "./auth/PrivateRoute";
 
 function App() {
+  let initial = [];
+  const [data, setData] = useState([]);
+  const [auswahl, setAuswahl] = useState(initial);
+
   useEffect(() => {
     fetchData();
   }, []);
-  const initial = [
-    {
-      id: 1,
-      zahl: 1,
-    },
-    {
-      id: 2,
-      zahl: 1,
-    },
-    {
-      id: 3,
-      zahl: 1,
-    },
-    {
-      id: 4,
-      zahl: 1,
-    },
-    {
-      id: 5,
-      zahl: 1,
-    },
-  ];
-  const [data, setData] = useState([]);
-  const [auswahl, setAuswahl] = useState(initial);
+
   const fetchData = async () => {
+    console.log("Ascy Running");
     const fetchData = await fetch("http://localhost:8080/getAllQuestion");
     const questions = await fetchData.json();
     setData(questions);
     console.log(questions);
+    for (let i = 1; i <= questions.length; i++) {
+      initial = [...initial, { id: i, zahl: 0 }];
+    }
+    setAuswahl(initial);
   };
   return (
     <div className="App">
