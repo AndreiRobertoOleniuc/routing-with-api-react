@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./styles/App.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import Question from "./components/Question";
 import Home from "./components/Home";
 import Ausgabe from "./components/Ausgabe";
@@ -24,21 +32,28 @@ function App() {
             <li>
               <Link to="/">Home</Link>
             </li>
-            {data.map((item) => (
-              <li key={item.id}>
-                <Link to={`/Questions/${item.id}`}>{item.id}</Link>
-              </li>
-            ))}
+            <li>
+              <Link to="/public">Public Page</Link>
+            </li>
+            <li>
+              <Link to="/Questions/1">Eignungs Test</Link>
+            </li>
           </ul>
           <Switch>
             <Route exact path="/">
               <Home />
             </Route>
             <Route exact path="/Ausgabe">
-              <Ausgabe auswahl={auswahl} />
+              <Ausgabe auswahl={auswahl} setAuswahl={setAuswahl} />
+            </Route>
+            <Route path="/public">
+              <Home />
+            </Route>
+            <Route path="/login">
+              <LoginPage />
             </Route>
             {data.map((item) => (
-              <Route key={item.id} exact path={`/Questions/${item.id}`}>
+              <PrivateRoute key={item.id} exact path={`/Questions/${item.id}`}>
                 <Question
                   name={item.question}
                   nextPage={item.id + 1}
@@ -46,12 +61,93 @@ function App() {
                   auswahl={auswahl}
                   setAuswahl={setAuswahl}
                 />
-              </Route>
+              </PrivateRoute>
             ))}
           </Switch>
+          <ul>
+            {data.map((item) => (
+              <li key={item.id}>
+                <Link to={`/Questions/${item.id}`}>{item.id}</Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </Router>
     </div>
   );
 }
+
+const fakeAuth = {
+  isAuthenticated: false,
+  authenticate(cb) {
+    fakeAuth.isAuthenticated = true;
+    setTimeout(cb, 100); // fake async
+  },
+  signout(cb) {
+    fakeAuth.isAuthenticated = false;
+    setTimeout(cb, 100);
+  },
+};
+// A wrapper for <Route> that redirects to the login
+// screen if you're not yet authenticated.
+function PrivateRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        fakeAuth.isAuthenticated ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  );
+}
+
+function ProtectedPage() {
+  return <h3>Protected</h3>;
+}
+function LoginPage() {
+  let history = useHistory();
+  let location = useLocation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const changeEmail = (e) => {
+    setEmail(e.target.value);
+    console.log(email);
+  };
+  const changePassword = (e) => {
+    setPassword(e.target.value);
+    console.log(password);
+  };
+  let { from } = location.state || { from: { pathname: "/" } };
+  let login = () => {
+    if (email === "andrei@gmail.com" && password === "12345") {
+      fakeAuth.authenticate(() => {
+        history.replace(from);
+      });
+    } else {
+      console.log("Wrong");
+    }
+  };
+
+  return (
+    <div>
+      <p>You must log in to view the page at {from.pathname}</p>
+      <input type="text" placeholder="email" onChange={changeEmail} />
+      <br />
+      <input type="text" placeholder="password" onChange={changePassword} />
+      <br />
+      <button onClick={login}>Log in</button>
+    </div>
+  );
+}
+
 export default App;
