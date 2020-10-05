@@ -79,7 +79,7 @@ function App() {
 
 const fakeAuth = {
   isAuthenticated: false,
-  authenticate(cb) {
+  authenticate(cb, email, password) {
     fakeAuth.isAuthenticated = true;
     setTimeout(cb, 100); // fake async
   },
@@ -109,10 +109,6 @@ function PrivateRoute({ children, ...rest }) {
     />
   );
 }
-
-function ProtectedPage() {
-  return <h3>Protected</h3>;
-}
 function LoginPage() {
   let history = useHistory();
   let location = useLocation();
@@ -129,13 +125,13 @@ function LoginPage() {
   };
   let { from } = location.state || { from: { pathname: "/" } };
   let login = () => {
-    if (email === "andrei@gmail.com" && password === "12345") {
-      fakeAuth.authenticate(() => {
+    fakeAuth.authenticate(
+      () => {
         history.replace(from);
-      });
-    } else {
-      console.log("Wrong");
-    }
+      },
+      email,
+      password
+    );
   };
 
   return (
