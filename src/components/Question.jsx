@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Question({
   name,
@@ -8,21 +8,32 @@ export default function Question({
   auswahl,
   setAuswahl,
 }) {
+  const location = useLocation();
+  var idOfQuestion = location.pathname.substring(11, location.pathname.length);
+  var intId = parseInt(idOfQuestion);
   useEffect(() => {
-    console.log(lastPage);
-    console.log(auswahl);
+    console.log("");
+    console.log(`This is the ID i got out of the UseLocation ${intId}`);
+    auswahl.map((quesiton) => {
+      console.log(`This is my Question ID from the Map ${quesiton.id}`);
+    });
   }, []);
   function add4() {
-    setAuswahl([...auswahl, { zahl: 4 }]);
+    setAuswahl([...auswahl, { id: nextPage - 1, zahl: 4 }]);
+    auswahl.map((que) => {
+      if (intId === que.id) {
+        console.log("Yes");
+      }
+    });
   }
   function add3() {
-    setAuswahl([...auswahl, { zahl: 3 }]);
+    setAuswahl([...auswahl, { id: nextPage - 1, zahl: 3 }]);
   }
   function add2() {
-    setAuswahl([...auswahl, { zahl: 2 }]);
+    setAuswahl([...auswahl, { id: nextPage - 1, zahl: 2 }]);
   }
   function add1() {
-    setAuswahl([...auswahl, { zahl: 1 }]);
+    setAuswahl([...auswahl, { id: nextPage - 1, zahl: 1 }]);
   }
   return (
     <div>

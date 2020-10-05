@@ -20,7 +20,7 @@ export default function Ausgabe({ auswahl, setAuswahl }) {
     const respone = await data.json();
     console.log(respone.procent);
     setRes(respone.procent);
-    setAuswahl([]);
+    //setAuswahl([]);
   };
   return (
     <div>

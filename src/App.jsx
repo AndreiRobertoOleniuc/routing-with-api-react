@@ -19,6 +19,7 @@ function App() {
   }, []);
   const [data, setData] = useState([]);
   const [auswahl, setAuswahl] = useState([]);
+  const [questions, setquestions] = useState({});
   const fetchData = async () => {
     const fetchData = await fetch("http://localhost:8080/getAllQuestion");
     const questions = await fetchData.json();
@@ -52,12 +53,16 @@ function App() {
             <Route path="/login">
               <LoginPage />
             </Route>
-            {data.map((item) => (
-              <PrivateRoute key={item.id} exact path={`/Questions/${item.id}`}>
+            {data.map((questions) => (
+              <PrivateRoute
+                key={questions.id}
+                exact
+                path={`/Questions/${questions.id}`}
+              >
                 <Question
-                  name={item.question}
-                  nextPage={item.id + 1}
-                  lastPage={item.id === data.length ? "true" : "false"}
+                  name={questions.question}
+                  nextPage={questions.id + 1}
+                  lastPage={questions.id === data.length ? "true" : "false"}
                   auswahl={auswahl}
                   setAuswahl={setAuswahl}
                 />
@@ -65,9 +70,9 @@ function App() {
             ))}
           </Switch>
           <ul>
-            {data.map((item) => (
-              <li key={item.id}>
-                <Link to={`/Questions/${item.id}`}>{item.id}</Link>
+            {data.map((questions) => (
+              <li key={questions.id}>
+                <Link to={`/Questions/${questions.id}`}>{questions.id}</Link>
               </li>
             ))}
           </ul>
@@ -117,11 +122,9 @@ function LoginPage() {
 
   const changeName = (e) => {
     setName(e.target.value);
-    console.log(name);
   };
   const changeVorname = (e) => {
     setVorname(e.target.value);
-    console.log(vorname);
   };
   let { from } = location.state || { from: { pathname: "/" } };
   let login = () => {
