@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 export default function Question({
@@ -11,15 +11,6 @@ export default function Question({
   const location = useLocation();
   var idOfQuestion = location.pathname.substring(11, location.pathname.length);
   var intId = parseInt(idOfQuestion);
-  useEffect(() => {
-    console.log("");
-    console.log(location);
-    console.log(auswahl);
-    console.log(`This is the ID i got out of the UseLocation ${intId}`);
-    auswahl.map((quesiton) => {
-      console.log(`This is my Question ID from the Map ${quesiton.id}`);
-    });
-  }, []);
   function add4() {
     setAuswahl(
       auswahl.map((item) => {
