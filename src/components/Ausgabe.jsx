@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function Ausgabe({ auswahl, setAuswahl }) {
+export default function Ausgabe({ auswahl, setAuswahl, initial }) {
   var sum = "";
   const [res, setRes] = useState("");
   console.log(auswahl);
@@ -20,7 +20,7 @@ export default function Ausgabe({ auswahl, setAuswahl }) {
     const respone = await data.json();
     console.log(respone.procent);
     setRes(respone.procent);
-    //setAuswahl([]);
+    setAuswahl(initial);
   };
   return (
     <div>

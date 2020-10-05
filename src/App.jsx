@@ -17,13 +17,35 @@ function App() {
   useEffect(() => {
     fetchData();
   }, []);
+  const initial = [
+    {
+      id: 1,
+      zahl: 1,
+    },
+    {
+      id: 2,
+      zahl: 1,
+    },
+    {
+      id: 3,
+      zahl: 1,
+    },
+    {
+      id: 4,
+      zahl: 1,
+    },
+    {
+      id: 5,
+      zahl: 1,
+    },
+  ];
   const [data, setData] = useState([]);
-  const [auswahl, setAuswahl] = useState([]);
-  const [questions, setquestions] = useState({});
+  const [auswahl, setAuswahl] = useState(initial);
   const fetchData = async () => {
     const fetchData = await fetch("http://localhost:8080/getAllQuestion");
     const questions = await fetchData.json();
     setData(questions);
+    console.log(questions);
   };
   return (
     <div className="App">
@@ -45,7 +67,7 @@ function App() {
               <Home />
             </Route>
             <Route exact path="/Ausgabe">
-              <Ausgabe auswahl={auswahl} setAuswahl={setAuswahl} />
+              <Ausgabe auswahl={auswahl} setAuswahl={setAuswahl} initial={initial}/>
             </Route>
             <Route path="/public">
               <Home />

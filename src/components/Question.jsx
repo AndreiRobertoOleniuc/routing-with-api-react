@@ -13,42 +13,64 @@ export default function Question({
   var intId = parseInt(idOfQuestion);
   useEffect(() => {
     console.log("");
+    console.log(location);
+    console.log(auswahl);
     console.log(`This is the ID i got out of the UseLocation ${intId}`);
     auswahl.map((quesiton) => {
       console.log(`This is my Question ID from the Map ${quesiton.id}`);
     });
   }, []);
   function add4() {
-    setAuswahl([...auswahl, { id: nextPage - 1, zahl: 4 }]);
-    auswahl.map((que) => {
-      if (intId === que.id) {
-        console.log("Yes");
-      }
-    });
+    setAuswahl(
+      auswahl.map((item) => {
+        if (item.id === intId) {
+          return {
+            ...item,
+            zahl: 4,
+          };
+        }
+        return item;
+      })
+    );
   }
   function add3() {
-    setAuswahl([...auswahl, { id: nextPage - 1, zahl: 3 }]);
-    auswahl.map((que) => {
-      if (intId === que.id) {
-        console.log("Yes");
-      }
-    });
+    setAuswahl(
+      auswahl.map((item) => {
+        if (item.id === intId) {
+          return {
+            ...item,
+            zahl: 3,
+          };
+        }
+        return item;
+      })
+    );
   }
   function add2() {
-    setAuswahl([...auswahl, { id: nextPage - 1, zahl: 2 }]);
-    auswahl.map((que) => {
-      if (intId === que.id) {
-        console.log("Yes");
-      }
-    });
+    setAuswahl(
+      auswahl.map((item) => {
+        if (item.id === intId) {
+          return {
+            ...item,
+            zahl: 2,
+          };
+        }
+        return item;
+      })
+    );
   }
   function add1() {
-    setAuswahl([...auswahl, { id: nextPage - 1, zahl: 1 }]);
-    auswahl.map((que) => {
-      if (intId === que.id) {
-        console.log("Yes");
-      }
-    });
+    setAuswahl(
+      auswahl.map((item) => {
+        if (item.id === intId) {
+          return {
+            ...item,
+            zahl: 1,
+          };
+        }
+        return item;
+      })
+    );
   }
   return (
     <div>
