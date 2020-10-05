@@ -28,12 +28,27 @@ export default function Question({
   }
   function add3() {
     setAuswahl([...auswahl, { id: nextPage - 1, zahl: 3 }]);
+    auswahl.map((que) => {
+      if (intId === que.id) {
+        console.log("Yes");
+      }
+    });
   }
   function add2() {
     setAuswahl([...auswahl, { id: nextPage - 1, zahl: 2 }]);
+    auswahl.map((que) => {
+      if (intId === que.id) {
+        console.log("Yes");
+      }
+    });
   }
   function add1() {
     setAuswahl([...auswahl, { id: nextPage - 1, zahl: 1 }]);
+    auswahl.map((que) => {
+      if (intId === que.id) {
+        console.log("Yes");
+      }
+    });
   }
   return (
     <div>
