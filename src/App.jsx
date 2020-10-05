@@ -79,7 +79,7 @@ function App() {
 
 const fakeAuth = {
   isAuthenticated: false,
-  authenticate(cb, email, password) {
+  authenticate(cb, name, vorname) {
     fakeAuth.isAuthenticated = true;
     setTimeout(cb, 100); // fake async
   },
@@ -112,16 +112,16 @@ function PrivateRoute({ children, ...rest }) {
 function LoginPage() {
   let history = useHistory();
   let location = useLocation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [vorname, setVorname] = useState("");
 
-  const changeEmail = (e) => {
-    setEmail(e.target.value);
-    console.log(email);
+  const changeName = (e) => {
+    setName(e.target.value);
+    console.log(name);
   };
-  const changePassword = (e) => {
-    setPassword(e.target.value);
-    console.log(password);
+  const changeVorname = (e) => {
+    setVorname(e.target.value);
+    console.log(vorname);
   };
   let { from } = location.state || { from: { pathname: "/" } };
   let login = () => {
@@ -129,19 +129,22 @@ function LoginPage() {
       () => {
         history.replace(from);
       },
-      email,
-      password
+      name,
+      vorname
     );
   };
 
   return (
     <div>
-      <p>You must log in to view the page at {from.pathname}</p>
-      <input type="text" placeholder="email" onChange={changeEmail} />
+      <h1>
+        Geben sie bitte Ihre Benutzerdaten ein um den EignungsTest durch zu
+        führen
+      </h1>
+      <input type="text" placeholder="Nachname" onChange={changeName} />
       <br />
-      <input type="text" placeholder="password" onChange={changePassword} />
+      <input type="text" placeholder="Vorname" onChange={changeVorname} />
       <br />
-      <button onClick={login}>Log in</button>
+      <button onClick={login}>Test Starten</button>
     </div>
   );
 }
